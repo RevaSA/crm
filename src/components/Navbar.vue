@@ -37,7 +37,6 @@
 </template>
 
 <script>
-    import M from 'materialize-css';
     import dateFilter from '@/filters/date.filter';
 
     export default {
@@ -55,7 +54,8 @@
             this.interval = setInterval(() => {
                 this.date = new Date();
             }, 1000);
-            this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
+            this.dropdown = window.M.Dropdown.init(this.$refs.dropdown, {
+                constrainWidth: false,
                 alignment: 'right',
             });
         },
