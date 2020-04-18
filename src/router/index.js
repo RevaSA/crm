@@ -23,10 +23,10 @@ const routes = [
         component: () => import(/* webpackChunkName: "register" */ '@/views/auth/Register.vue'),
     },
     {
-        path: '/category',
-        name: 'category',
+        path: '/categories',
+        name: 'categories',
         meta: { layout: 'main' },
-        component: () => import(/* webpackChunkName: "category" */ '@/views/Category.vue'),
+        component: () => import(/* webpackChunkName: "categories" */ '@/views/Categories.vue'),
     },
     {
         path: '/detail/:id',
