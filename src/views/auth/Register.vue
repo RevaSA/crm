@@ -36,6 +36,19 @@
             </div>
 
             <div class="input-field">
+                <input id="repeat-password" type="password"
+                       v-model.trim="repeatPassword"
+                       :class="{
+                           invalid: $v.repeatPassword.$dirty && !$v.repeatPassword.sameAsPassword
+                       }"
+                >
+                <label for="repeat-password">Повторите пароль</label>
+                <small class="helper-text invalid" v-if="$v.repeatPassword.$dirty && !$v.repeatPassword.sameAsPassword">
+                    Пароли не совпадают
+                </small>
+            </div>
+
+            <div class="input-field">
                 <input id="name" type="text"
                        v-model.trim="name"
                        :class="{
@@ -75,12 +88,15 @@
 
 <script>
     import { validationMixin } from 'vuelidate';
-    import { required, email, minLength } from 'vuelidate/lib/validators';
+    import {
+        required, email, minLength, sameAs,
+    } from 'vuelidate/lib/validators';
 
     export default {
         data: () => ({
             email: '',
             password: '',
+            repeatPassword: '',
             name: '',
             agree: false,
         }),
@@ -109,6 +125,9 @@
             password: {
                 required,
                 minLength: minLength(6),
+            },
+            repeatPassword: {
+                sameAsPassword: sameAs('password'),
             },
             name: {
                 required,
