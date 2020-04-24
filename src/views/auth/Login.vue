@@ -54,11 +54,18 @@
     import { validationMixin } from 'vuelidate';
     import { required, email, minLength } from 'vuelidate/lib/validators';
 
+    const messages = {
+        logout: 'Вы вышли из системы',
+    };
+
     export default {
         data: () => ({
             email: '',
             password: '',
         }),
+        mounted() {
+            this.$message(messages[this.$route.query.message]);
+        },
         methods: {
             onSubmit() {
                 if (this.$v.$invalid) {
