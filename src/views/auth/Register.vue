@@ -101,7 +101,7 @@
             agree: false,
         }),
         methods: {
-            onSubmit() {
+            async onSubmit() {
                 if (this.$v.$invalid) {
                     this.$v.$touch();
                     return;
@@ -113,8 +113,10 @@
                     name: this.name,
                 };
 
-                console.log(data);
-                this.$router.push('/');
+                try {
+                    await this.$store.dispatch('register', data);
+                    this.$router.push('/');
+                } catch (e) {}
             },
         },
         validations: {
