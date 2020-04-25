@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import firebase from 'firebase/app';
 
 export default {
@@ -11,18 +9,28 @@ export default {
     },
     actions: {
         async register({ dispatch, commit }, { email, password, name }) {
-            await firebase.auth().createUserWithEmailAndPassword(email, password);
+            try {
+                await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-            const uid = await dispatch('getUid');
-            const info = {
-                bill: 10000,
-                name,
-            };
+                const uid = await dispatch('getUid');
+                const info = {
+                    bill: 10000,
+                    name,
+                };
 
-            await firebase.database().ref(`/users/${uid}/info`).set(info);
+                await firebase.database().ref(`/users/${uid}/info`).set(info);
+            } catch (e) {
+                commit('setError', e);
+                throw e;
+            }
         },
-        async login({ dispatch, commit }, { email, password }) {
-            await firebase.auth().signInWithEmailAndPassword(email, password);
+        async login({ commit }, { email, password }) {
+            try {
+                await firebase.auth().signInWithEmailAndPassword(email, password);
+            } catch (e) {
+                commit('setError', e);
+                throw e;
+            }
         },
         async logout() {
             await firebase.auth().signOut();
