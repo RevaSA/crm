@@ -67,7 +67,7 @@
             this.$message(messages[this.$route.query.message]);
         },
         methods: {
-            onSubmit() {
+            async onSubmit() {
                 if (this.$v.$invalid) {
                     this.$v.$touch();
                     return;
@@ -78,8 +78,10 @@
                     password: this.password,
                 };
 
-                console.log(data);
-                this.$router.push('/');
+                try {
+                    await this.$store.dispatch('login', data);
+                    this.$router.push('/');
+                } catch (e) {}
             },
         },
         validations: {

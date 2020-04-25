@@ -12,6 +12,7 @@ module.exports = {
     },
     rules: {
         indent: ['error', 4, { SwitchCase: 1 }],
+        'no-empty': ['error', { allowEmptyCatch: true }],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'max-len': ['error', { code: 120 }],
