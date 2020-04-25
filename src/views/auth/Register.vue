@@ -52,7 +52,7 @@
                 <input id="name" type="text"
                        v-model.trim="name"
                        :class="{
-                           invalid: $v.name.$dirty && !($v.name.required && $v.name.minLength)
+                           invalid: $v.name.$dirty && !$v.name.required
                        }"
                 >
                 <label for="name">Имя</label>
