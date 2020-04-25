@@ -11,7 +11,7 @@
             <ul class="right hide-on-small-and-down">
                 <li>
                     <a href="#" class="dropdown-trigger black-text" data-target="dropdown" ref="dropdown">
-                        USER NAME
+                        {{ name }}
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
 
@@ -45,6 +45,13 @@
             interval: null,
             dropdown: null,
         }),
+        computed: {
+            name() {
+                const { info } = this.$store.getters;
+
+                return (info && info.name) || 'Пользователь';
+            },
+        },
         methods: {
             async logout() {
                 await this.$store.dispatch('logout');
