@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    import dateFilter from '@/filters/date.filter';
+    import dateFilter from '@/filters/date';
 
     export default {
         data: () => ({
