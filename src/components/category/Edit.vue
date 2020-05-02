@@ -43,7 +43,7 @@
                     Введите лимит
                 </small>
                 <small class="helper-text invalid" v-else-if="$v.limit.$dirty && !$v.limit.minValue">
-                    Минимальная значение {{ $v.limit.$params.minValue.min }}
+                    Минимальное значение {{ $v.limit.$params.minValue.min }}
                 </small>
             </div>
 
