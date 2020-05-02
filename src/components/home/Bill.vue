@@ -20,10 +20,7 @@
         }),
         computed: {
             base() {
-                const { info } = this.$store.getters;
-                const bill = info ? info.bill : 0;
-
-                return bill / (this.rates.RUB / this.rates.EUR);
+                return this.$store.getters.info.bill / (this.rates.RUB / this.rates.EUR);
             },
         },
         methods: {

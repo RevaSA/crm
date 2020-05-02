@@ -2,7 +2,7 @@ import { database } from 'firebase';
 
 export default {
     state: {
-        info: null,
+        info: {},
     },
     getters: {
         info: state => state.info,
@@ -12,7 +12,7 @@ export default {
             state.info = info;
         },
         clearInfo(state) {
-            state.info = null;
+            state.info = {};
         },
     },
     actions: {

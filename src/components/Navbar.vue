@@ -47,9 +47,7 @@
         }),
         computed: {
             name() {
-                const { info } = this.$store.getters;
-
-                return (info && info.name) || 'Пользователь';
+                return this.$store.getters.info.name;
             },
         },
         methods: {
