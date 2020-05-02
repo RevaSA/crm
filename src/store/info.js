@@ -5,7 +5,7 @@ export default {
         info: null,
     },
     getters: {
-        info: (state) => state.info,
+        info: state => state.info,
     },
     mutations: {
         setInfo(state, info) {

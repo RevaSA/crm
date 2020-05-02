@@ -135,7 +135,7 @@
                 required,
             },
             agree: {
-                checked: (value) => value,
+                checked: value => value,
             },
         },
         mixins: [validationMixin],

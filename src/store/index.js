@@ -13,7 +13,7 @@ export default new Vuex.Store({
         error: null,
     },
     getters: {
-        error: (state) => state.error,
+        error: state => state.error,
     },
     mutations: {
         setError(state, error) {

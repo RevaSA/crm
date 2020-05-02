@@ -37,7 +37,7 @@
                 this.categories.push(category);
             },
             updatedCategory({ id, title, limit }) {
-                const index = this.categories.findIndex((category) => category.id === id);
+                const index = this.categories.findIndex(category => category.id === id);
 
                 this.categories[index].title = title;
                 this.categories[index].limit = limit;
