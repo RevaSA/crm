@@ -13,7 +13,13 @@
             </main>
 
             <div class="fixed-action-btn">
-                <router-link class="btn-floating btn-large blue" to="/record">
+                <router-link class="btn-floating btn-large blue"
+                    to="/record"
+                    v-tooltip="{
+                        position: 'left',
+                        html: 'Создать новую запись',
+                    }"
+                >
                     <i class="large material-icons">add</i>
                 </router-link>
             </div>
@@ -24,6 +30,7 @@
 <script>
     import Navbar from '@/components/Navbar';
     import Sidebar from '@/components/Sidebar';
+    import tooltip from '@/directives/tooltip';
 
     export default {
         data: () => ({
@@ -41,5 +48,6 @@
             Navbar,
             Sidebar,
         },
+        directives: { tooltip },
     };
 </script>

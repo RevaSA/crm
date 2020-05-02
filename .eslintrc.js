@@ -12,12 +12,13 @@ module.exports = {
     },
     rules: {
         indent: ['error', 4, { SwitchCase: 1 }],
+        'max-len': 'off',
         'no-plusplus': 'off',
+        'no-nested-ternary': 'off',
         'no-empty': ['error', { allowEmptyCatch: true }],
         'no-unused-expressions': ['error', { allowShortCircuit: true }],
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-        'max-len': ['error', { code: 120 }],
         'arrow-parens': ['error', 'as-needed'],
         'import/extensions': ['error', 'always', {
             js: 'never',
