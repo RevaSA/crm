@@ -1,23 +1,66 @@
 <template>
-    <div>
-        <div class="breadcrumb-wrap">
-            <a href="/history" class="breadcrumb">История</a>
-            <a class="breadcrumb">
-                Расход
-            </a>
-        </div>
-        <div class="row">
-            <div class="col s12 m6">
-                <div class="card red">
-                    <div class="card-content white-text">
-                        <p>Описание:</p>
-                        <p>Сумма:</p>
-                        <p>Категория:</p>
+    <section>
+        <Loader v-if="isLoading" />
 
-                        <small>12.12.12</small>
+        <div v-else-if="record">
+            <div class="breadcrumb-wrap">
+                <router-link class="breadcrumb" to="/history">
+                    История
+                </router-link>
+                <a class="breadcrumb">
+                    {{ record.type === 'income' ? 'Доход' : 'Расход'}}
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card"
+                        :class="{
+                            green: record.type === 'income',
+                            red: record.type === 'outcome',
+                        }"
+                    >
+                        <div class="card-content white-text">
+                            <p>Описание: {{ record.description }}</p>
+                            <p>Сумма: {{ record.amount | currencyFilter }}</p>
+                            <p>Категория: {{ record.categoryName }}</p>
+                            <small>{{ record.date | dateFilter('datetime') }}</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <h6 v-else>
+            Запись с id={{ $route.params.id }} не найдена.
+        </h6>
+    </section>
 </template>
+
+<script>
+    import currencyFilter from '@/filters/currency';
+    import dateFilter from '@/filters/date';
+
+    export default {
+        data: () => ({
+            isLoading: true,
+            record: null,
+        }),
+        async mounted() {
+            const { id } = this.$route.params;
+            const record = await this.$store.dispatch('fetchRecordById', id);
+
+            if (record) {
+                const category = await this.$store.dispatch('fetchCategoryById', record.categoryId);
+
+                this.record = {
+                    ...record,
+                    categoryName: category.title,
+                };
+            }
+
+            this.isLoading = false;
+        },
+        filters: { currencyFilter, dateFilter },
+    };
+</script>

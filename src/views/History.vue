@@ -8,36 +8,38 @@
             <canvas></canvas>
         </div>
 
-        <section>
-            <table>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Сумма</th>
-                    <th>Дата</th>
-                    <th>Категория</th>
-                    <th>Тип</th>
-                    <th>Открыть</th>
-                </tr>
-                </thead>
+        <Loader v-if="isLoading" />
 
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>1212</td>
-                    <td>12.12.32</td>
-                    <td>name</td>
-                    <td>
-                        <span class="white-text badge red">Расход</span>
-                    </td>
-                    <td>
-                        <button class="btn-small btn">
-                            <i class="material-icons">open_in_new</i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
+        <h6 v-else-if="!records.length">
+            Записей пока нет.
+            <router-link to="/record">Добавить новую.</router-link>
+        </h6>
+
+        <HistoryTable v-else :records="records" />
     </div>
 </template>
+
+<script>
+    import HistoryTable from '@/components/history/Table';
+
+    export default {
+        data: () => ({
+            isLoading: true,
+            records: [],
+            categories: [],
+        }),
+        async mounted() {
+            const records = await this.$store.dispatch('fetchRecords');
+
+            this.categories = await this.$store.dispatch('fetchCategories');
+            this.records = records.reverse().map(record => ({
+                ...record,
+                categoryName: this.categories.find(category => category.id === record.categoryId).title,
+                typeText: record.type === 'income' ? 'Доход' : 'Расход',
+                typeClass: record.type === 'income' ? 'green' : 'red',
+            }));
+            this.isLoading = false;
+        },
+        components: { HistoryTable },
+    };
+</script>
