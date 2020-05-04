@@ -4,10 +4,6 @@
             <h3>История записей</h3>
         </div>
 
-        <div class="history-chart">
-            <canvas></canvas>
-        </div>
-
         <Loader v-if="isLoading" />
 
         <h6 v-else-if="!allItems.length">
@@ -16,6 +12,10 @@
         </h6>
 
         <section v-else>
+            <div class="history-chart">
+                <HistoryChart :items="chartData" />
+            </div>
+
             <HistoryTable :records="items" />
 
             <Paginate
@@ -32,16 +32,25 @@
 </template>
 
 <script>
+    import HistoryChart from '@/components/history/Chart';
     import HistoryTable from '@/components/history/Table';
     import paginationMixin from '@/mixins/pagination';
 
     export default {
         data: () => ({
             isLoading: true,
+            chartData: [],
         }),
         async mounted() {
             const records = await this.$store.dispatch('fetchRecords');
             const categories = await this.$store.dispatch('fetchCategories');
+
+            this.chartData = categories.map(category => ({
+                label: category.title,
+                data: records
+                    .filter(record => record.categoryId === category.id && record.type === 'outcome')
+                    .reduce((acc, { amount }) => acc + amount, 0),
+            }));
 
             this.setupPagination(records.map((record, index) => ({
                 ...record,
@@ -54,6 +63,6 @@
             this.isLoading = false;
         },
         mixins: [paginationMixin],
-        components: { HistoryTable },
+        components: { HistoryChart, HistoryTable },
     };
 </script>
