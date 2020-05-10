@@ -61,6 +61,11 @@
 
             this.isLoading = false;
         },
+        metaInfo() {
+            return {
+                title: this.$title('История'),
+            };
+        },
         filters: { currencyFilter, dateFilter },
     };
 </script>

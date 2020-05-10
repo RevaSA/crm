@@ -48,6 +48,11 @@
             this.categories = await this.$store.dispatch('fetchCategories');
             this.isLoading = false;
         },
+        metaInfo() {
+            return {
+                title: this.$title('Категории'),
+            };
+        },
         components: {
             Create,
             Edit,

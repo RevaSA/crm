@@ -85,6 +85,11 @@
                 } catch (e) {}
             },
         },
+        metaInfo() {
+            return {
+                title: this.$title('Вход'),
+            };
+        },
         validations: {
             email: {
                 required,

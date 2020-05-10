@@ -67,6 +67,11 @@
                 };
             });
         },
+        metaInfo() {
+            return {
+                title: this.$title('Планирование'),
+            };
+        },
         directives: { tooltip },
         filters: { currency },
     };

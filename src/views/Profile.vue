@@ -60,6 +60,11 @@
                 window.M.updateTextFields();
             });
         },
+        metaInfo() {
+            return {
+                title: this.$title('Профиль'),
+            };
+        },
         validations: {
             name: { required },
         },

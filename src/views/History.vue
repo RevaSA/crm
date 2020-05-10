@@ -62,6 +62,11 @@
 
             this.isLoading = false;
         },
+        metaInfo() {
+            return {
+                title: this.$title('История'),
+            };
+        },
         mixins: [paginationMixin],
         components: { HistoryChart, HistoryTable },
     };

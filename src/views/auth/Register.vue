@@ -119,6 +119,11 @@
                 } catch (e) {}
             },
         },
+        metaInfo() {
+            return {
+                title: this.$title('Регистрация'),
+            };
+        },
         validations: {
             email: {
                 required,

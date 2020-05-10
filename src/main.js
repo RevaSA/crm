@@ -1,8 +1,10 @@
 import Vue from 'vue';
+import VueMeta from 'vue-meta';
 import firebase from 'firebase/app';
 import App from '@/App';
 import router from '@/router';
 import store from '@/store';
+import titlePlugin from '@/utils/title';
 import messagePlugin from '@/utils/message';
 import Loader from '@/components/Loader';
 import '@/registerServiceWorker';
@@ -19,6 +21,8 @@ firebase.initializeApp({
 });
 
 Vue.config.productionTip = false;
+Vue.use(VueMeta);
+Vue.use(titlePlugin);
 Vue.use(messagePlugin);
 Vue.component('Loader', Loader);
 

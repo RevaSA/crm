@@ -146,6 +146,11 @@
         destroyed() {
             this.select && this.select.destroy && this.select.destroy();
         },
+        metaInfo() {
+            return {
+                title: this.$title('Новая запись'),
+            };
+        },
         validations: {
             amount: {
                 required,
