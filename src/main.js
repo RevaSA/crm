@@ -11,13 +11,13 @@ import '@/registerServiceWorker';
 import 'materialize-css/dist/js/materialize.min';
 
 firebase.initializeApp({
-    apiKey: 'AIzaSyAfgbnGIMaQwJmTH6tWNwqJbDFYJ54CDGE',
-    authDomain: 'dementor-vue-crm.firebaseapp.com',
-    databaseURL: 'https://dementor-vue-crm.firebaseio.com',
-    projectId: 'dementor-vue-crm',
-    storageBucket: 'dementor-vue-crm.appspot.com',
-    messagingSenderId: '287515160947',
-    appId: '1:287515160947:web:b9648413839ac65aad9506',
+    apiKey: 'AIzaSyCkgLLQvyrSA78RknZWGfrs_11-aOwayzY',
+    authDomain: 'crm-revasa.firebaseapp.com',
+    databaseURL: 'https://crm-revasa.firebaseio.com',
+    projectId: 'crm-revasa',
+    storageBucket: 'crm-revasa.appspot.com',
+    messagingSenderId: '212628703144',
+    appId: '1:212628703144:web:0dd69637f8e48565c83f9d',
 });
 
 Vue.config.productionTip = false;
