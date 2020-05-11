@@ -17,7 +17,7 @@
                     to="/record"
                     v-tooltip="{
                         position: 'left',
-                        html: 'Создать новую запись',
+                        html: 'CreateNewRecord',
                     }"
                 >
                     <i class="large material-icons">add</i>

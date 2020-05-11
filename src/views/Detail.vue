@@ -5,10 +5,10 @@
         <div v-else-if="record">
             <div class="breadcrumb-wrap">
                 <router-link class="breadcrumb" to="/history">
-                    История
+                    {{ 'Menu_History' | localize }}
                 </router-link>
                 <a class="breadcrumb">
-                    {{ record.type === 'income' ? 'Доход' : 'Расход'}}
+                    {{ record.type === 'income' ? 'Income' : 'Outcome' | localize }}
                 </a>
             </div>
 
@@ -21,9 +21,9 @@
                         }"
                     >
                         <div class="card-content white-text">
-                            <p>Описание: {{ record.description }}</p>
-                            <p>Сумма: {{ record.amount | currencyFilter }}</p>
-                            <p>Категория: {{ record.categoryName }}</p>
+                            <p>{{ 'Description' | localize }}: {{ record.description }}</p>
+                            <p>{{ 'Amount' | localize }}: {{ record.amount | currencyFilter }}</p>
+                            <p>{{ 'Category' | localize }}: {{ record.categoryName }}</p>
                             <small>{{ record.date | dateFilter('datetime') }}</small>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
         </div>
 
         <h6 v-else>
-            Запись с id={{ $route.params.id }} не найдена.
+            {{ 'RecordNotFound' | localize }}. ID - {{ $route.params.id }}
         </h6>
     </section>
 </template>
@@ -63,7 +63,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('История'),
+                title: this.$title('Detail_Title'),
             };
         },
         filters: { currencyFilter, dateFilter },

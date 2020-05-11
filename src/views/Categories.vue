@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Категории</h3>
+            <h3>{{ 'Categories' | localize }}</h3>
         </div>
 
         <Loader v-if="isLoading" />
@@ -50,7 +50,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('Категории'),
+                title: this.$title('Menu_Categories'),
             };
         },
         components: {

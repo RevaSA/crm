@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Профиль</h3>
+            <h3>{{ 'ProfileTitle' | localize }}</h3>
         </div>
 
         <form class="form" @submit.prevent="submitHandler">
@@ -13,15 +13,24 @@
                     :class="{invalid: $v.name.$dirty && !$v.name.required}"
                 >
 
-                <label for="description">Имя</label>
+                <label for="description">{{ 'Name' | localize }}</label>
 
                 <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">
-                    Введите имя
+                    {{ 'Message_EnterName' | localize }}
                 </small>
             </div>
 
+            <div class="switch">
+                <label>
+                    English
+                    <input type="checkbox" v-model="isRuLocale">
+                    <span class="lever"></span>
+                    Русский
+                </label>
+            </div>
+
             <button class="btn waves-effect waves-light" type="submit">
-                Обновить
+                {{ 'Update' | localize }}
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -37,6 +46,7 @@
         mixins: [validationMixin],
         data: () => ({
             name: '',
+            isRuLocale: true,
         }),
         computed: {
             ...mapGetters(['info']),
@@ -50,19 +60,20 @@
 
                 await this.$store.dispatch('updateInfo', {
                     name: this.name,
+                    locale: this.isRuLocale ? 'ru-RU' : 'en-US',
                 });
             },
         },
         mounted() {
             this.name = this.info.name;
-
+            this.isRuLocale = this.info.locale === 'en-US';
             this.$nextTick(() => {
                 window.M.updateTextFields();
             });
         },
         metaInfo() {
             return {
-                title: this.$title('Профиль'),
+                title: this.$title('ProfileTitle'),
             };
         },
         validations: {
@@ -70,3 +81,9 @@
         },
     };
 </script>
+
+<style>
+    .switch {
+        margin-bottom: 2rem;
+    }
+</style>

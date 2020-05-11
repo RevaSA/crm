@@ -1,22 +1,22 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Планирование</h3>
+            <h3>{{ 'Menu_Planning' | localize }}</h3>
             <h4>{{ info.bill | currency }}</h4>
         </div>
 
         <Loader v-if="isLoading" />
 
         <h6 v-else-if="!categories.length">
-            Категорий нет.
-            <router-link to="/categories">Добавить новую.</router-link>
+            {{ 'NoCategories' | localize }}.
+            <router-link to="/categories">{{ 'AddFirst' | localize }}.</router-link>
         </h6>
 
         <section v-else>
             <div v-for="category of categories" :key="category.id">
                 <p>
                     <strong>{{ category.title }}:</strong>
-                    {{ category.spend | currency }} из {{ category.limit | currency }}
+                    {{ category.spend | currency }} {{ 'Of' | localize }} {{ category.limit | currency }}
                 </p>
 
                 <div class="progress" v-tooltip="category.tooltipText">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+    import localize from '@/filters/localize';
     import { mapGetters } from 'vuex';
     import currency from '@/filters/currency';
     import tooltip from '@/directives/tooltip';
@@ -56,7 +57,7 @@
                 const progressPercent = Math.min(percent, 100);
                 const progressColor = percent < 60 ? 'green' : percent <= 100 ? 'yellow' : 'red';
                 const tooltipValue = category.limit - spend;
-                const tooltipText = `${tooltipValue < 0 ? 'Превышение на' : 'Осталось'} ${currency(Math.abs(tooltipValue))}`;
+                const tooltipText = `${localize(tooltipValue < 0 ? 'MoreThan' : 'Stayed')} ${currency(Math.abs(tooltipValue))}`;
 
                 return {
                     ...category,
@@ -69,7 +70,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('Планирование'),
+                title: this.$title('Menu_Planning'),
             };
         },
         directives: { tooltip },

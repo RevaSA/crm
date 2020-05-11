@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-subtitle">
-            <h4>Создать</h4>
+            <h4>{{ 'Create' | localize }}</h4>
         </div>
 
         <form @submit.prevent="onSubmit">
@@ -13,9 +13,9 @@
                            invalid: $v.title.$dirty && !$v.title.required
                        }"
                 >
-                <label for="create-name">Название</label>
+                <label for="create-name">{{ 'Title' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.title.$dirty && !$v.title.required">
-                    Введите название категории
+                    {{ 'Message_CategoryTitle' | localize }}
                 </small>
             </div>
 
@@ -27,17 +27,17 @@
                            invalid: $v.limit.$dirty && !($v.limit.required && $v.limit.minValue)
                        }"
                 >
-                <label for="create-limit">Лимит</label>
+                <label for="create-limit">{{ 'Limit' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.limit.$dirty && !$v.limit.required">
-                    Введите лимит
+                    {{ 'Message_EnterLimit' | localize }}
                 </small>
                 <small class="helper-text invalid" v-else-if="$v.limit.$dirty && !$v.limit.minValue">
-                    Минимальная значение {{ $v.limit.$params.minValue.min }}
+                    {{ 'Message_MinLength' | localize }} {{ $v.limit.$params.minValue.min }}
                 </small>
             </div>
 
             <button class="btn waves-effect waves-light">
-                Создать
+                {{ 'Create' | localize }}
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+    import localize from '@/filters/localize';
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
 
@@ -70,7 +71,7 @@
                 this.title = '';
                 this.limit = MIN_LIMIT;
                 this.$v.$reset();
-                this.$message('Категория была создана');
+                this.$message(localize('Category_HasBeenCreated'));
                 this.$emit('created', category);
             },
         },

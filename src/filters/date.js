@@ -1,4 +1,7 @@
+import store from '@/store';
+
 export default function (value, format = 'date') {
+    const locale = store.getters.info.locale || 'en-US';
     const options = {};
 
     if (format.includes('date')) {
@@ -13,5 +16,5 @@ export default function (value, format = 'date') {
         options.second = '2-digit';
     }
 
-    return new Intl.DateTimeFormat('ru-RU', options).format(new Date(value));
+    return new Intl.DateTimeFormat(locale, options).format(new Date(value));
 }

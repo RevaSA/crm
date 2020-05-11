@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Новая запись</h3>
+            <h3>{{ 'Menu_NewRecord' | localize }}</h3>
         </div>
 
         <Loader v-if="isLoading" />
 
         <h6 v-else-if="!categories.length">
-            Категорий нет.
-            <router-link to="/categories">Добавить новую.</router-link>
+            {{ 'NoCategories' | localize }}.
+            <router-link to="/categories">{{ 'AddFirst' | localize }}.</router-link>
         </h6>
 
         <form v-else class="form" @submit.prevent="onSubmit">
@@ -20,20 +20,20 @@
                         :value="category.id"
                     >{{ category.title }}</option>
                 </select>
-                <label>Выберите категорию</label>
+                <label>{{ 'SelectCategory' | localize }}</label>
             </div>
 
             <p>
                 <label>
                     <input class="with-gap" name="type" type="radio" value="income" v-model="type"/>
-                    <span>Доход</span>
+                    <span>{{ 'Income' | localize }}</span>
                 </label>
             </p>
 
             <p>
                 <label>
                     <input class="with-gap" name="type" type="radio" value="outcome" v-model="type"/>
-                    <span>Расход</span>
+                    <span>{{ 'Outcome' | localize }}</span>
                 </label>
             </p>
 
@@ -43,12 +43,12 @@
                        v-model.number="amount"
                        :class="{ invalid: $v.amount.$dirty && !($v.amount.required && $v.amount.minValue) }"
                 >
-                <label for="amount">Сумма</label>
+                <label for="amount">{{ 'Amount' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.amount.$dirty && !$v.amount.required">
-                    Введите сумму
+                    {{ 'Message_EnterAmount' | localize }}
                 </small>
                 <small class="helper-text invalid" v-else-if="$v.amount.$dirty && !$v.amount.minValue">
-                    Минимальное значение {{ $v.amount.$params.minValue.min }}
+                    {{ 'Message_MinLength' | localize }} {{ $v.amount.$params.minValue.min }}
                 </small>
             </div>
 
@@ -58,14 +58,14 @@
                        v-model.trim="description"
                        :class="{ invalid: $v.description.$dirty && !$v.description.required }"
                 >
-                <label for="description">Описание</label>
+                <label for="description">{{ 'Description' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.description.$dirty && !$v.description.required">
-                    Введите описание
+                    {{ 'Message_EnterDescription' | localize }}
                 </small>
             </div>
 
             <button class="btn waves-effect waves-light">
-                Создать
+                {{ 'Create' | localize }}
                 <i class="material-icons right">send</i>
             </button>
         </form>
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+    import localize from '@/filters/localize';
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
     import { mapGetters } from 'vuex';
@@ -106,7 +107,7 @@
                 }
 
                 if (!this.canCreate) {
-                    this.$message(`Недостаточно средств на счёте (${this.amount - this.info.bill})`);
+                    this.$message(`${localize('NotEnoughMoney')} (${this.amount - this.info.bill})`);
                     return;
                 }
 
@@ -123,7 +124,7 @@
 
                 await this.$store.dispatch('createRecord', data);
                 await this.$store.dispatch('updateInfo', { bill });
-                this.$message('Запись успешно создана');
+                this.$message(localize('RecordHasBeenCreated'));
                 this.type = 'outcome';
                 this.amount = MIN_AMOUNT;
                 this.description = '';
@@ -148,7 +149,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('Новая запись'),
+                title: this.$title('Menu_NewRecord'),
             };
         },
         validations: {

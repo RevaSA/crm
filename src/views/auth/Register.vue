@@ -1,7 +1,7 @@
 <template>
     <form class="card auth-card" @submit.prevent="onSubmit">
         <div class="card-content">
-            <span class="card-title">Домашняя бухгалтерия</span>
+            <span class="card-title">{{ 'CRM_Title' | localize }}</span>
 
             <div class="input-field">
                 <input id="email" type="text"
@@ -12,10 +12,10 @@
                 >
                 <label for="email">Email</label>
                 <small class="helper-text invalid" v-if="$v.email.$dirty && !$v.email.required">
-                    Введите почту
+                    {{ 'Message_EmailRequired' | localize }}
                 </small>
                 <small class="helper-text invalid" v-else-if="$v.email.$dirty && !$v.email.email">
-                    Введите корректный Email
+                    {{ 'Message_EmailValid' | localize }}
                 </small>
             </div>
 
@@ -26,12 +26,12 @@
                            invalid: $v.password.$dirty && !($v.password.required && $v.password.minLength)
                        }"
                 >
-                <label for="password">Пароль</label>
+                <label for="password">{{ 'Password' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.password.$dirty && !$v.password.required">
-                    Введите пароль
+                    {{ 'Message_EnterPassword' | localize }}
                 </small>
                 <small class="helper-text invalid" v-else-if="$v.password.$dirty && !$v.password.minLength">
-                    Пароль должен быть {{ $v.password.$params.minLength.min }} символов
+                    {{ 'Message_MinLength' | localize }} {{ $v.password.$params.minLength.min }}
                 </small>
             </div>
 
@@ -42,9 +42,9 @@
                            invalid: $v.repeatPassword.$dirty && !$v.repeatPassword.sameAsPassword
                        }"
                 >
-                <label for="repeat-password">Повторите пароль</label>
+                <label for="repeat-password">{{ 'RepeatPassword' | localize}}</label>
                 <small class="helper-text invalid" v-if="$v.repeatPassword.$dirty && !$v.repeatPassword.sameAsPassword">
-                    Пароли не совпадают
+                    {{ 'PasswordsDontMeet' | localize }}
                 </small>
             </div>
 
@@ -55,9 +55,9 @@
                            invalid: $v.name.$dirty && !$v.name.required
                        }"
                 >
-                <label for="name">Имя</label>
+                <label for="name">{{ 'Name' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.name.$dirty && !$v.name.required">
-                    Введите имя
+                    {{ 'Message_EnterName' | localize }}
                 </small>
             </div>
 
@@ -68,19 +68,19 @@
                            invalid: $v.agree.$dirty && !$v.agree.checked
                        }"
                 >
-                <span>С правилами согласен</span>
+                <span>{{ 'AcceptRules' | localize }}</span>
             </label>
         </div>
 
         <div class="card-action">
             <button class="btn waves-effect waves-light auth-submit">
-                Зарегистрироваться
+                {{ 'Register' | localize }}
                 <i class="material-icons right">send</i>
             </button>
 
             <p class="center">
-                Уже есть аккаунт?
-                <router-link to="/login">Войти!</router-link>
+                {{ 'HasAccount' | localize }}
+                <router-link to="/login">{{ 'Login' | localize }}!</router-link>
             </p>
         </div>
     </form>
@@ -121,7 +121,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('Регистрация'),
+                title: this.$title('Register'),
             };
         },
         validations: {

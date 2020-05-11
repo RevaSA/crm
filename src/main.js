@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import App from '@/App';
 import router from '@/router';
 import store from '@/store';
+import localize from '@/filters/localize';
 import titlePlugin from '@/utils/title';
 import messagePlugin from '@/utils/message';
 import Loader from '@/components/Loader';
@@ -24,6 +25,7 @@ Vue.config.productionTip = false;
 Vue.use(VueMeta);
 Vue.use(titlePlugin);
 Vue.use(messagePlugin);
+Vue.filter('localize', localize);
 Vue.component('Loader', Loader);
 
 let app = null;

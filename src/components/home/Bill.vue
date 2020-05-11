@@ -1,7 +1,7 @@
 <template>
     <div class="card light-blue bill-card">
         <div class="card-content white-text">
-            <span class="card-title">Счет в валюте</span>
+            <span class="card-title">{{ 'BillInCurrency' | localize }}</span>
 
             <p class="currency-line" v-for="currency of currencies" :key="currency">
                 <span>{{ getCurrency(currency) | currencyFilter(currency) }}</span>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-subtitle">
-            <h4>Редактировать</h4>
+            <h4>{{ 'Edit' | localize }}</h4>
         </div>
 
         <form v-if="categories.length" @submit.prevent="onSubmit">
@@ -13,7 +13,7 @@
                         :value="category.id"
                     >{{ category.title }}</option>
                 </select>
-                <label>Выберите категорию</label>
+                <label>{{ 'SelectCategory' | localize }}</label>
             </div>
 
             <div class="input-field">
@@ -24,9 +24,9 @@
                            invalid: $v.title.$dirty && !$v.title.required
                        }"
                 >
-                <label for="update-name">Название</label>
+                <label for="update-name">{{ 'Title' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.title.$dirty && !$v.title.required">
-                    Введите название категории
+                    {{ 'Message_CategoryTitle' | localize }}
                 </small>
             </div>
 
@@ -38,26 +38,27 @@
                            invalid: $v.limit.$dirty && !($v.limit.required && $v.limit.minValue)
                        }"
                 >
-                <label for="update-limit">Лимит</label>
+                <label for="update-limit">{{ 'Limit' | localize }}</label>
                 <small class="helper-text invalid" v-if="$v.limit.$dirty && !$v.limit.required">
-                    Введите лимит
+                    {{ 'Message_EnterLimit' | localize }}
                 </small>
                 <small class="helper-text invalid" v-else-if="$v.limit.$dirty && !$v.limit.minValue">
-                    Минимальное значение {{ $v.limit.$params.minValue.min }}
+                    {{ 'Message_MinLength' | localize }} {{ $v.limit.$params.minValue.min }}
                 </small>
             </div>
 
             <button class="btn waves-effect waves-light">
-                Обновить
+                {{ 'Update' | localize }}
                 <i class="material-icons right">send</i>
             </button>
         </form>
 
-        <h6 v-else>Категорий пока нет</h6>
+        <h6 v-else>{{ 'NoCategories' | localize }}</h6>
     </div>
 </template>
 
 <script>
+    import localize from '@/filters/localize';
     import { validationMixin } from 'vuelidate';
     import { required, minValue } from 'vuelidate/lib/validators';
 
@@ -100,7 +101,7 @@
                 };
 
                 await this.$store.dispatch('updateCategory', data);
-                this.$message('Категория успешно обновлена');
+                this.$message(localize('Category_HasBeenUpdated'));
                 this.$emit('updated', data);
             },
         },

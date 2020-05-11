@@ -5,11 +5,13 @@
 </template>
 
 <script>
+    import localize from '@/filters/localize';
+
     const messages = {
-        defaultError: 'Что-то пошло не так',
-        'auth/user-not-found': 'Пользователя с таким email не существует',
-        'auth/wrong-password': 'Неверный пароль',
-        'auth/email-already-in-use': 'Email уже занят',
+        defaultError: 'DefaultError',
+        'auth/user-not-found': 'NoUserWithEmail',
+        'auth/wrong-password': 'WrongPassword',
+        'auth/email-already-in-use': 'EmailInUse',
     };
 
     export default {
@@ -20,7 +22,7 @@
         },
         watch: {
             error(firebaseError) {
-                this.$message(messages[firebaseError.code] || messages.defaultError, 'error');
+                this.$message(localize(messages[firebaseError.code] || messages.defaultError), 'error');
             },
         },
     };

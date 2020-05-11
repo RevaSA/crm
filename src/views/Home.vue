@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Счет</h3>
+            <h3>{{ 'Bill' | localize }}</h3>
 
             <button type="button"
                     class="btn waves-effect waves-light btn-small"
@@ -48,7 +48,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('Счет'),
+                title: this.$title('Menu_Bill'),
             };
         },
         components: {

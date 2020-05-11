@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>История записей</h3>
+            <h3>{{ 'History_Title' | localize }}</h3>
         </div>
 
         <Loader v-if="isLoading" />
 
         <h6 v-else-if="!allItems.length">
-            Записей пока нет.
-            <router-link to="/record">Добавить новую.</router-link>
+            {{ 'NoRecords' | localize }}.
+            <router-link to="/record">{{ 'AddFirst' | localize }}.</router-link>
         </h6>
 
         <section v-else>
@@ -22,8 +22,8 @@
                 v-model="page"
                 :page-count="pageCount"
                 :click-handler="pageChangeHandler"
-                :prev-text="'Назад'"
-                :next-text="'Вперед'"
+                :prev-text="'Back' | localize"
+                :next-text="'Forward' | localize"
                 :container-class="'pagination'"
                 :page-class="'waves-effect'"
             />
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+    import localize from '@/filters/localize';
     import HistoryChart from '@/components/history/Chart';
     import HistoryTable from '@/components/history/Table';
     import paginationMixin from '@/mixins/pagination';
@@ -56,7 +57,7 @@
                 ...record,
                 position: index + 1,
                 categoryName: categories.find(({ id }) => id === record.categoryId).title,
-                typeText: record.type === 'income' ? 'Доход' : 'Расход',
+                typeText: localize(record.type === 'income' ? 'Income' : 'Outcome'),
                 typeClass: record.type === 'income' ? 'green' : 'red',
             })));
 
@@ -64,7 +65,7 @@
         },
         metaInfo() {
             return {
-                title: this.$title('История'),
+                title: this.$title('Menu_History'),
             };
         },
         mixins: [paginationMixin],
